@@ -20,6 +20,8 @@ namespace DeweyTrain.Views
     /// Interaction logic for ReplacingBooksPage.xaml
     /// </summary>
     /// 
+
+    //Reference (Wiesław Šoltés, 2015)
     public class Item
     {
         public string Name { get; set; }

@@ -8,21 +8,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReplacingBooksPage">
 
-    <Page.Resources>
-        <Style x:Key="ListBoxDragDrop" 
-               TargetType="{x:Type ListBoxItem}">
-            <Setter Property="AllowDrop" 
-                    Value="true"/>
-           <!-- <EventSetter Event="PreviewMouseMove"
-                         Handler="s_PreviewMouseMoveEvent"/>
-            <EventSetter Event="Drop" 
-                         Handler="listbox1_Drop"/>-->
-        </Style>
-    </Page.Resources>
     
     <Grid>
         <ListBox x:Name="listbox1" 
-                 ItemContainerStyle="{StaticResource ListBoxDragDrop}" 
                  HorizontalAlignment="Left" 
                  Height="299" 
                  Margin="20,0,20,0" 
