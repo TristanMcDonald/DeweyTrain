@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeweyTrain.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,17 @@ namespace DeweyTrain
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Initializing pages to be displayed in the content frame
+        ReplacingBooksPage replacingBooksPage = new ReplacingBooksPage();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ReplacingBooksBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = replacingBooksPage;
         }
     }
 }
