@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeweyTrain.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,15 +23,6 @@ namespace DeweyTrain.Views
     /// 
 
     //Reference (Wiesław Šoltés, 2015)
-    public class Item
-    {
-        public string Name { get; set; }
-        public Item(string name)
-        {
-            this.Name = name;
-        }
-    }
-
     public partial class ReplacingBooksPage : Page
     {
 
@@ -63,14 +55,8 @@ namespace DeweyTrain.Views
             InitializeComponent();
 
             //Calling the addListItems method to add the randomly generated
-            //call numbers to the list instantiated above.
+            //call numbers to the List and IList instantiated above.
             addListItems();
-
-            //Iterating through each item in the list and adding them to the listbox.
-            //foreach(var item in _items)
-            //{
-            //    listbox1.Items.Add(item);
-            //}
 
             listbox1.DisplayMemberPath = "Name";
             listbox1.ItemsSource = _items;
@@ -115,6 +101,8 @@ namespace DeweyTrain.Views
 
                 string randSrtNum = rand_num.ToString();
 
+                //adding the randomly generated numbers to the IList for
+                //use with the listbox drag and drop process.
                 _items.Add(new Item(randSrtNum));
 
             }
