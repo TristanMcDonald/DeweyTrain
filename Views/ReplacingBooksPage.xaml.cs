@@ -54,9 +54,9 @@ namespace DeweyTrain.Views
         {
             InitializeComponent();
 
-            //Calling the addListItems method to add the randomly generated
-            //call numbers to the List and IList instantiated above.
-            addListItems();
+            //Calling the generateListItems method to add the randomly generated
+            //call numbers to the List instantiated above.
+            generateListItems();
 
             listbox1.DisplayMemberPath = "Name";
             listbox1.ItemsSource = _items;
@@ -89,7 +89,8 @@ namespace DeweyTrain.Views
 
         }
 
-        public void addListItems()
+        //Method to randomly generate call numbers.
+        public void generateListItems()
         {
             //Random object for use with randomly generating call numbers.
             Random rd = new Random();
@@ -99,7 +100,14 @@ namespace DeweyTrain.Views
             {
                 double rand_num = rd.Next(0, 999);
 
-                string randSrtNum = rand_num.ToString();
+                //Generating a random decimal and using th etruncate method to
+                //limit the decimal values to 3 decimal places (Skeet, 2010).
+                double rand_decimal = rd.NextDouble();
+                rand_decimal = Math.Truncate(rand_decimal * 1000) / 1000;
+
+                double rand_call_num = rand_num + rand_decimal;
+
+                string randSrtNum = rand_call_num.ToString();
 
                 //adding the randomly generated numbers to the IList for
                 //use with the listbox drag and drop process.
@@ -115,7 +123,7 @@ namespace DeweyTrain.Views
 
         }
 
-        //Bubble sort algorithm to sort the call numbers in ascending order.
+        //Bubble sort algorithm to sort the call numbers in ascending order (Wade, 2020).
         public void BubbleSort(List<double> input)
         {
             var itemMoved = false;
