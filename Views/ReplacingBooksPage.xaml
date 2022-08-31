@@ -10,12 +10,48 @@
 
     
     <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
         <ListBox x:Name="listbox1" 
-                 HorizontalAlignment="Left" 
+                 Grid.Column="0"
+                 Grid.RowSpan="3"
                  Height="299" 
-                 Margin="20,0,20,0" 
+                 Margin="50,0" 
                  VerticalAlignment="Center" 
-                 Width="224"/>
+                 Width="224"
+                 FontWeight="Bold"
+                 FontSize="17"
+                 Padding="80,10,98,5"/>
+
+        <ListBox x:Name="listbox2" 
+                 Grid.Column="2"
+                 Grid.RowSpan="3"
+                 Height="299" 
+                 Margin="50,0" 
+                 VerticalAlignment="Center" 
+                 Width="224"
+                 FontWeight="Bold"
+                 FontSize="17"
+                 Padding="80,10,98,5"/>
+
+        <Button x:Name="checkBtn"
+                Grid.Column="1"
+                Grid.Row="2"
+                Margin="30,60,30,60"
+                Content="CHECK"/>
+
+
     </Grid>
     
     

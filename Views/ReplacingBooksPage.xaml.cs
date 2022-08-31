@@ -48,7 +48,12 @@ namespace DeweyTrain.Views
             return FindVisualParent<T>(parentObject);
         }
 
-        private IList<Item> _items = new ObservableCollection<Item>();
+        //Declaration of lists for storing the randomly generated call numbers
+        //and the sorted call numbers. An IList used to allow the user to drag
+        //and drop call numbers to reorder them.
+        private List<double> randomItems = new List<double>();
+        private IList<Item> _items = new ObservableCollection<Item>();       
+        private List<double> sortedItems = new List<double>();
 
         //List which will contain the randomly generated call numbers.
         //List<double> List = new List<double>();
@@ -85,6 +90,17 @@ namespace DeweyTrain.Views
             listbox1.ItemContainerStyle = style;
 
 
+            //storing the randomly generated call numbers into a different list
+            //and using the bubble sort algorithm to sort that list in ascending order
+            sortedItems = randomItems;
+            BubbleSort(sortedItems);
+
+            //Iterating through each item in the list and adding them to the listbox.
+            foreach (var item in sortedItems)
+            {
+                listbox2.Items.Add(item);
+            }
+
         }
 
         public void addListItems()
@@ -102,8 +118,34 @@ namespace DeweyTrain.Views
                 _items.Add(new Item(randSrtNum));
 
             }
+
+            //Storing the randomly generated call numbers in a List
+            foreach (var item in _items)
+            {
+                randomItems.Add(double.Parse(item.Name));
+            }
+
         }
 
+        //Bubble sort algorithm to sort the call numbers in ascending order.
+        public void BubbleSort(List<double> input)
+        {
+            var itemMoved = false;
+            do
+            {
+                itemMoved = false;
+                for (int i = 0; i < input.Count() - 1; i++)
+                {
+                    if (input[i] < input[i + 1])
+                    {
+                        var lowerValue = input[i + 1];
+                        input[i + 1] = input[i];
+                        input[i] = lowerValue;
+                        itemMoved = true;
+                    }
+                }
+            } while (itemMoved);
+        }
 
         private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
