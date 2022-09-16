@@ -43,13 +43,13 @@ namespace DeweyTrain.Views
         //Declaration of lists for storing the randomly generated call numbers
         //and the sorted call numbers. An IList used to allow the user to drag
         //and drop call numbers to reorder them.
-        private List<double> randomItems = new List<double>();
-        private IList<Item> _items = new ObservableCollection<Item>();       
-        private List<double> sortedItems = new List<double>();
+        private List<Item> randomItems = new List<Item>();            
+        private List<Item> sortedItems = new List<Item>();
+        private IList<Item> _items = new ObservableCollection<Item>();
 
         //List which will contain the randomly generated call numbers.
         //List<double> List = new List<double>();
-        
+
         public ReplacingBooksPage()
         {
             InitializeComponent();
@@ -58,7 +58,7 @@ namespace DeweyTrain.Views
             //call numbers to the List instantiated above.
             generateListItems();
 
-            listbox1.DisplayMemberPath = "Name";
+            listbox1.DisplayMemberPath = "CallNumber";
             listbox1.ItemsSource = _items;
 
             listbox1.PreviewMouseMove += ListBox_PreviewMouseMove;
@@ -74,18 +74,7 @@ namespace DeweyTrain.Views
                         ListBoxItem.DropEvent,
                         new DragEventHandler(ListBoxItem_Drop)));
             listbox1.ItemContainerStyle = style;
-
-
-            //storing the randomly generated call numbers into a different list
-            //and using the bubble sort algorithm to sort that list in ascending order
-            sortedItems = randomItems;
-            BubbleSort(sortedItems);
-
-            //Iterating through each item in the list and adding them to the listbox.
-            foreach (var item in sortedItems)
-            {
-                listbox2.Items.Add(item);
-            }
+            
 
         }
 
@@ -109,17 +98,21 @@ namespace DeweyTrain.Views
 
                 string randSrtNum = rand_call_num.ToString();
 
+                double randDecimal = Double.Parse(randSrtNum);
+
                 //adding the randomly generated numbers to the IList for
                 //use with the listbox drag and drop process.
-                _items.Add(new Item(randSrtNum));
+                _items.Add(new Item(randDecimal));
 
             }
 
             //Storing the randomly generated call numbers in a List
             foreach (var item in _items)
             {
-                randomItems.Add(double.Parse(item.Name));
+                randomItems.Add(item);
             }
+
+            listbox1.ItemsSource = randomItems;
 
         }
 
@@ -143,6 +136,98 @@ namespace DeweyTrain.Views
             } while (itemMoved);
         }
 
+        //Method to check if the user sorted the list items correctly.
+        public void checkSorting()
+        {
+            //Calling the sort items method
+            sortItems();
+
+            //In this section of code 2 foreach loops are used to check if the 2 lists items match exactly.
+            bool elementsMatch = true;
+
+            List<double> temp_itemsList = new List<double>();
+
+            List<double> tempSortedItemsList = new List<double>();
+
+            foreach (var item in _items)
+            {
+                temp_itemsList.Add(item.CallNumber);
+            }
+
+            foreach (var item in sortedItems)
+            {
+                tempSortedItemsList.Add(item.CallNumber);
+            }
+
+            for (int i = 0; i < _items.Count; i++)
+            {
+                if (!temp_itemsList.ElementAt(i).Equals(tempSortedItemsList.ElementAt(i)))
+                {
+                    elementsMatch = false;
+                }
+            }
+
+            //If all items in the users listbox, that they have sorted themselves, matches the items in the 
+            //sortedItems list, which is sorted using the bubble sort method, then display the correct label
+            //else display incorrect label.
+            if (elementsMatch.Equals(true))
+            {
+                correctLabel.Visibility = Visibility.Visible;
+                incorrectLabel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                incorrectLabel.Visibility = Visibility.Visible;
+                correctLabel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        //Method to sort the items within the sortedItems List in ascending order
+        //Using the bubble sort method
+        public void sortItems()
+        {
+            //storing the randomly generated call numbers into a different list
+            //and using the bubble sort algorithm to sort that list in ascending order
+            sortedItems = randomItems;
+
+            List<double> itemsFromSorted = new List<double>();
+
+            foreach (var item in sortedItems)
+            {
+                itemsFromSorted.Add(item.CallNumber);
+            }
+
+            //Clearing the sortedItems List to populate with newly sorted Items
+            sortedItems.Clear();
+
+            //calling the bubble sort method to sort the numbers
+            BubbleSort(itemsFromSorted);
+
+            //Adding the sorted numbers back to the sortedItems List. 
+            foreach (var number in itemsFromSorted)
+            {
+                sortedItems.Add(new Item(number));
+            }
+        }
+
+        //Event handler for check button clicked.
+        private void checkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //Calling the checkSorting method.
+            checkSorting();
+
+            //Removing all potential items in listbox2 before adding sorted items to the listbox
+            listbox2.Items.Clear();      
+
+            //Iterating through each item in the list and adding them to the listbox.
+            foreach (var item in sortedItems)
+            {
+                listbox2.Items.Add(item.CallNumber);
+            }
+        }
+
+        
+        
         private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             Point point = e.GetPosition(null);
@@ -195,6 +280,5 @@ namespace DeweyTrain.Views
                 }
             }
         }
-
     }
 }

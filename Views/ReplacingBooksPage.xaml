@@ -107,12 +107,38 @@
         <!--Button to check users answer-->
 
         <Button x:Name="checkBtn"
+                Click="checkBtn_Click"
                 Grid.Column="1"
                 Grid.Row="2"
                 Margin="30,60,30,60"
                 Content="CHECK ANSWER"/>
 
+        
+        <!--Labels to tell the user whether they are correct or not-->
+        
+        <Label x:Name="correctLabel"
+               Grid.Row="1"
+               Grid.Column="1"
+               Content="Correct"
+               FontSize="24"
+               FontWeight="DemiBold"
+               Foreground="LightGreen"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               Visibility="Hidden"/>
 
+        <Label x:Name="incorrectLabel"
+               Grid.Row="1"
+               Grid.Column="1"
+               Content="Incorrect"
+               FontSize="24"
+               FontWeight="DemiBold"
+               Foreground="Red"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom"
+               Visibility="Hidden"/>
+
+        
     </Grid>
     
     
