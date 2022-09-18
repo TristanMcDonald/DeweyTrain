@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="ImgAssets\podium.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ImgAssets\podium.png" />
+  </ItemGroup>
+
 </Project>

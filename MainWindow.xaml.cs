@@ -24,6 +24,7 @@ namespace DeweyTrain
         //Initializing pages to be displayed in the content frame
         WelcomePage welcomePage = new WelcomePage();
         ReplacingBooksPage replacingBooksPage = new ReplacingBooksPage();
+        LeaderboardPage leaderboardPage = new LeaderboardPage();
 
         public MainWindow()
         {
@@ -34,6 +35,11 @@ namespace DeweyTrain
         private void ReplacingBooksBtn_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = replacingBooksPage;
+        }
+
+        private void LeaderboardBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ContentFrame.Content = leaderboardPage;
         }
     }
 }
