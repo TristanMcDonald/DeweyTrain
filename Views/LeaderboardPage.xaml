@@ -24,7 +24,7 @@
 
         <Frame Grid.Row="0" 
                Grid.ColumnSpan="3" 
-               Margin="5"
+               Margin="10"
                Background='#2699FB'
                VerticalAlignment="Stretch"
                HorizontalAlignment="Stretch">
@@ -38,7 +38,8 @@
                Grid.Column="0"
                Grid.ColumnSpan="3"
                HorizontalAlignment="Center"
-               FontSize="40"
+               VerticalAlignment="Center"
+               FontSize="35"
                FontWeight="Bold"
                Foreground="White"/>
 
