@@ -22,11 +22,13 @@ namespace DeweyTrain
     public partial class MainWindow : Window
     {
         //Initializing pages to be displayed in the content frame
+        WelcomePage welcomePage = new WelcomePage();
         ReplacingBooksPage replacingBooksPage = new ReplacingBooksPage();
 
         public MainWindow()
         {
             InitializeComponent();
+            ContentFrame.Content = welcomePage;
         }
 
         private void ReplacingBooksBtn_Click(object sender, RoutedEventArgs e)
