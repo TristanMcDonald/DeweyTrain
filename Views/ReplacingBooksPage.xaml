@@ -139,7 +139,21 @@
                 BorderBrush="LightBlue"
                 BorderThickness="0.5"/>
 
-        
+        <!--Button to restart task-->
+
+        <Button x:Name="restartBtn"
+                Click="restartBtn_Click"
+                Grid.Column="1"
+                Grid.Row="2"
+                Margin="30,60,30,60"
+                Content="RESTART"
+                FontWeight="Bold"
+                Foreground="LightBlue"
+                Background="CadetBlue"
+                BorderBrush="LightBlue"
+                BorderThickness="0.5"/>
+
+
         <!--Labels to tell the user whether they are correct or not-->
         
         <Label x:Name="correctLabel"

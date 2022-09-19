@@ -31,7 +31,7 @@ namespace DeweyTrain.Views
             //Loading the leaderboard list view with placeholder objects to simulate a
             //live release leaderboard (Feldman, 2016).
             leaderboardController.sortLeaderboardUsers();
-            leaderboardUsers = leaderboardController.sortedLeaders;
+            leaderboardUsers = leaderboardController.sortedLeaders.ToList();
             this.leaderboardListView.ItemsSource = leaderboardUsers;
         }
     }

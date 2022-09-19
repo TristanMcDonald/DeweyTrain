@@ -62,6 +62,12 @@ namespace DeweyTrain.Views
 
         public ReplacingBooksPage()
         {
+            InitializeComponents();
+        }
+
+        //Created a method to initialize the necessary components for the page.
+        public void InitializeComponents()
+        {
             InitializeComponent();
 
             //Calling the generateListItems method to add the randomly generated
@@ -83,8 +89,6 @@ namespace DeweyTrain.Views
                         ListBoxItem.DropEvent,
                         new DragEventHandler(ListBoxItem_Drop)));
             listbox1.ItemContainerStyle = style;
-            
-
         }
 
         //Method to randomly generate call numbers.
@@ -287,6 +291,20 @@ namespace DeweyTrain.Views
                     _items.RemoveAt(removeIndex);
                 }
             }
+        }
+
+        private void restartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //Resetting the interface and lists for the new task.
+            correctLabel.Visibility = Visibility.Collapsed;
+            incorrectLabel.Visibility = Visibility.Collapsed;
+            randomItems.Clear();
+            sortedItems.Clear();
+            _items.Clear();
+            listbox1.ItemsSource = null;
+            listbox1.Items.Clear();
+            listbox2.Items.Clear();
+            InitializeComponents();
         }
     }
 }
