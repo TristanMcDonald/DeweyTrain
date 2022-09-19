@@ -38,6 +38,17 @@
             </Frame.Effect>
         </Frame>
 
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Content="DEWEY TRAIN"
+               FontSize="19"
+               FontWeight="Black"
+               Foreground="AliceBlue"
+               Margin="20,0,20,0"
+               MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+
         <!-- Leaderboard Button -->
 
         <Image x:Name="LeaderboardBtn"
@@ -99,7 +110,8 @@
                 Margin="10"
                 Content="Replacing Books"
                 FontWeight="DemiBold"
-                BorderThickness="0"/>
+                BorderThickness="0"
+                Background="#2699FB"/>
 
         <Button x:Name="IdentifyingAreasBtn"
                 Grid.Column="1"
@@ -108,6 +120,7 @@
                 Content="Identifying Areas"
                 FontWeight="DemiBold"
                 BorderThickness="0"
+                Background="#2699FB"
                 IsEnabled="False"/>
 
         <Button x:Name="FindingCallNumbersBtn"
@@ -117,6 +130,7 @@
                 Content="Finding Call Numbers"
                 FontWeight="DemiBold"
                 BorderThickness="0"
+                Background="#2699FB"
                 IsEnabled="False"/>
 
         

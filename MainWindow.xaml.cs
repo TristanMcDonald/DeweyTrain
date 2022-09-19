@@ -41,5 +41,10 @@ namespace DeweyTrain
         {
             ContentFrame.Content = leaderboardPage;                  
         }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ContentFrame.Content = welcomePage;
+        }
     }
 }
