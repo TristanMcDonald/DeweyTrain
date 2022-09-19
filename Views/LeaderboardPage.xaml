@@ -43,7 +43,7 @@
                FontWeight="Bold"
                Foreground="White"/>
 
-        <ListBox x:Name="leaderboardListBox"
+        <!--<ListBox x:Name="leaderboardListBox"
                  Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="3"
@@ -55,7 +55,67 @@
                  HorizontalAlignment="Center"
                  FontWeight="Bold"
                  FontSize="17"
-                 Padding="60,10,60,5"/>
+                 Padding="60,10,60,5"/>-->
+
+        <TextBlock Text="Profile Image"
+                   FontSize="20"
+                   Foreground="Black"
+                   FontWeight="DemiBold"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Username"
+                   FontSize="20"
+                   Foreground="Black"
+                   FontWeight="DemiBold"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Points"
+                   FontSize="20"
+                   Foreground="Black"
+                   FontWeight="DemiBold"
+                   Grid.Column="2"
+                   Grid.Row="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"/>
+
+        <ListView x:Name="leaderboardListView"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  Grid.RowSpan="3"
+                  Width="800"
+                  Height="330"
+                  Margin="50,20">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                        <Image Source="{Binding ProfilePicture}" 
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center" 
+                               Width="45" Height="45"
+                               Margin="20,20,260,20"/>
+                        <TextBlock Text="{Binding Username}" 
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   FontWeight="DemiBold"
+                                   Margin="0,20,230,20"/>
+                        <TextBlock Text="{Binding Points}" 
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   FontWeight="DemiBold"
+                                   Margin="0,20,20,20"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
 
     </Grid>

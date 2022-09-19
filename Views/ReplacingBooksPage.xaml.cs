@@ -47,8 +47,21 @@ namespace DeweyTrain.Views
         private List<Item> sortedItems = new List<Item>();
         private IList<Item> _items = new ObservableCollection<Item>();
 
+        //Object of the Users class to add points to the current users account.
+        User user = new User();
+
+        //Object of the LeaderboardUsers class.
+        public LeaderboardUsers currentUser = new LeaderboardUsers();
+        
         //List which will contain the randomly generated call numbers.
         //List<double> List = new List<double>();
+
+        public void addCurrentUser()
+        {
+            currentUser.Username = user.Username;
+            currentUser.ProfilePicture = new BitmapImage(new Uri("pack://application:,,,/ImgAssets/account.png"));
+            currentUser.Points = user.Points;
+        }
 
         public ReplacingBooksPage()
         {
@@ -100,7 +113,10 @@ namespace DeweyTrain.Views
 
                 double randDecimal = Double.Parse(randSrtNum);
 
-                //adding the randomly generated numbers to the IList for
+                //Generate random author initials.
+                string rndmInitials = randomInitials();
+
+                //adding the randomly generated numbers and initials to the IList for
                 //use with the listbox drag and drop process.
                 _items.Add(new Item(randDecimal));
 
@@ -174,6 +190,7 @@ namespace DeweyTrain.Views
             {
                 correctLabel.Visibility = Visibility.Visible;
                 incorrectLabel.Visibility = Visibility.Collapsed;
+                user.Points = user.Points + 5;
             }
             else
             {
@@ -210,6 +227,20 @@ namespace DeweyTrain.Views
             }
         }
 
+        //Method to generate random author initials for the call numbers (Thakur, 2020).
+        public string randomInitials()
+        {
+            StringBuilder str = new StringBuilder();
+            char c;
+            Random random = new Random((int)DateTime.Now.Ticks);
+            for (int i = 0; i < 3; i++)
+            {
+                c = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                str.Append(c);
+            }
+            return str.ToString();
+        }
+
         //Event handler for check button clicked.
         private void checkBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -226,8 +257,7 @@ namespace DeweyTrain.Views
             }
         }
 
-        
-        
+                
         private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             Point point = e.GetPosition(null);

@@ -39,7 +39,7 @@ namespace DeweyTrain
 
         private void LeaderboardBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ContentFrame.Content = leaderboardPage;
+            ContentFrame.Content = leaderboardPage;                  
         }
     }
 }
