@@ -52,9 +52,6 @@ namespace DeweyTrain.Views
 
         //Object of the LeaderboardUsers class.
         public LeaderboardUsers currentUser = new LeaderboardUsers();
-        
-        //List which will contain the randomly generated call numbers.
-        //List<double> List = new List<double>();
 
         public void addCurrentUser()
         {
@@ -71,7 +68,6 @@ namespace DeweyTrain.Views
             //call numbers to the List instantiated above.
             generateListItems();
 
-            listbox1.DisplayMemberPath = "CallNumber";
             listbox1.ItemsSource = _items;
 
             listbox1.PreviewMouseMove += ListBox_PreviewMouseMove;
@@ -118,7 +114,7 @@ namespace DeweyTrain.Views
 
                 //adding the randomly generated numbers and initials to the IList for
                 //use with the listbox drag and drop process.
-                _items.Add(new Item(randDecimal));
+                _items.Add(new Item(randDecimal, rndmInitials));
 
             }
 
@@ -128,12 +124,10 @@ namespace DeweyTrain.Views
                 randomItems.Add(item);
             }
 
-            listbox1.ItemsSource = randomItems;
-
         }
 
         //Bubble sort algorithm to sort the call numbers in ascending order (Wade, 2020).
-        public void BubbleSort(List<double> input)
+        public void BubbleSort(List<Item> input)
         {
             var itemMoved = false;
             do
@@ -141,7 +135,7 @@ namespace DeweyTrain.Views
                 itemMoved = false;
                 for (int i = 0; i < input.Count() - 1; i++)
                 {
-                    if (input[i] < input[i + 1])
+                    if (input[i].CallNumber < input[i + 1].CallNumber)
                     {
                         var lowerValue = input[i + 1];
                         input[i + 1] = input[i];
@@ -207,24 +201,8 @@ namespace DeweyTrain.Views
             //and using the bubble sort algorithm to sort that list in ascending order
             sortedItems = randomItems;
 
-            List<double> itemsFromSorted = new List<double>();
-
-            foreach (var item in sortedItems)
-            {
-                itemsFromSorted.Add(item.CallNumber);
-            }
-
-            //Clearing the sortedItems List to populate with newly sorted Items
-            sortedItems.Clear();
-
             //calling the bubble sort method to sort the numbers
-            BubbleSort(itemsFromSorted);
-
-            //Adding the sorted numbers back to the sortedItems List. 
-            foreach (var number in itemsFromSorted)
-            {
-                sortedItems.Add(new Item(number));
-            }
+            BubbleSort(sortedItems);
         }
 
         //Method to generate random author initials for the call numbers (Thakur, 2020).
@@ -253,7 +231,7 @@ namespace DeweyTrain.Views
             //Iterating through each item in the list and adding them to the listbox.
             foreach (var item in sortedItems)
             {
-                listbox2.Items.Add(item.CallNumber);
+                listbox2.Items.Add(item.CallNumber + " " + item.AuthorInitials);
             }
         }
 

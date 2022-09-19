@@ -9,16 +9,16 @@ namespace DeweyTrain.Models
     public class Item
     {
         public double CallNumber { get; set; }
-        //public string AuthorInitials { get; set; }
+        public string AuthorInitials { get; set; }
 
         public Item()
         {
 
         }
-        public Item(double callNumber)
+        public Item(double callNumber, string authorInitials)
         {
             this.CallNumber = callNumber;
-            //this.AuthorInitials = authorInitials;
+            this.AuthorInitials = authorInitials;
         }
     }
 }
