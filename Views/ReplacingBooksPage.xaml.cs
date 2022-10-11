@@ -21,13 +21,12 @@ namespace DeweyTrain.Views
     /// Interaction logic for ReplacingBooksPage.xaml
     /// </summary>
     /// 
-
-    //Reference (Wiesław Šoltés, 2015)
     public partial class ReplacingBooksPage : Page
     {
-
+        //The following method was taken from StackOverFlow:
+        //Author: Wiesław Šoltés
+        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
         private Point _dragStartPoint;
-
         private T FindVisualParent<T>(DependencyObject child)
             where T : DependencyObject
         {
@@ -47,22 +46,13 @@ namespace DeweyTrain.Views
         private List<Item> sortedItems = new List<Item>();
         private IList<Item> _items = new ObservableCollection<Item>();
 
-        //Object of the Users class to add points to the current users account.
-        User user = new User();
-
-        //Object of the LeaderboardUsers class.
-        public LeaderboardUsers currentUser = new LeaderboardUsers();
-
-        public void addCurrentUser()
-        {
-            currentUser.Username = user.Username;
-            currentUser.ProfilePicture = new BitmapImage(new Uri("pack://application:,,,/ImgAssets/account.png"));
-            currentUser.Points = user.Points;
-        }
+        //Temporary variable to sum the users points and add to the currentuser object.
+        public int userPoints { get; set; }
 
         public ReplacingBooksPage()
         {
             InitializeComponents();
+            
         }
 
         //Created a method to initialize the necessary components for the page.
@@ -186,9 +176,18 @@ namespace DeweyTrain.Views
             //else display incorrect label.
             if (elementsMatch.Equals(true))
             {
+                checkBtn.Visibility = Visibility.Collapsed;
                 correctLabel.Visibility = Visibility.Visible;
                 incorrectLabel.Visibility = Visibility.Collapsed;
-                user.Points = user.Points + 5;
+                MessageBox.Show("You have received 5 points","CONGRATULATIONS", MessageBoxButton.OK, MessageBoxImage.Information);
+                userPoints += 5;
+                userPointsLabel.Content = userPoints.ToString();
+                if (userPoints == 10)
+                {
+                    BitmapImage badge = new BitmapImage(new Uri("pack://application:,,,/ImgAssets/accepted.png"));
+                    MessageBox.Show("You have received a new Badge shown in the bottom right corner", "CONGRATULATIONS", MessageBoxButton.OK, MessageBoxImage.Information);
+                    badgeImg.Source = badge;
+                }
             }
             else
             {
@@ -239,7 +238,9 @@ namespace DeweyTrain.Views
             }
         }
 
-                
+        //The following method was taken from StackOverFlow:
+        //Author: Wiesław Šoltés
+        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
         private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             Point point = e.GetPosition(null);
@@ -256,11 +257,16 @@ namespace DeweyTrain.Views
                 }
             }
         }
+        //The following method was taken from StackOverFlow:
+        //Author: Wiesław Šoltés
+        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
         private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _dragStartPoint = e.GetPosition(null);
         }
-
+        //The following method was taken from StackOverFlow:
+        //Author: Wiesław Šoltés
+        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
         private void ListBoxItem_Drop(object sender, DragEventArgs e)
         {
             if (sender is ListBoxItem)
@@ -274,7 +280,9 @@ namespace DeweyTrain.Views
                 Move(source, sourceIndex, targetIndex);
             }
         }
-
+        //The following method was taken from StackOverFlow:
+        //Author: Wiesław Šoltés
+        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
         private void Move(Item source, int sourceIndex, int targetIndex)
         {
             if (sourceIndex < targetIndex)
@@ -293,9 +301,11 @@ namespace DeweyTrain.Views
             }
         }
 
+        //Click event for when the restart button is clicked.
         private void restartBtn_Click(object sender, RoutedEventArgs e)
         {
             //Resetting the interface and lists for the new task.
+            checkBtn.Visibility = Visibility.Visible;
             correctLabel.Visibility = Visibility.Collapsed;
             incorrectLabel.Visibility = Visibility.Collapsed;
             randomItems.Clear();
@@ -305,6 +315,7 @@ namespace DeweyTrain.Views
             listbox1.Items.Clear();
             listbox2.Items.Clear();
             InitializeComponents();
+            
         }
     }
 }

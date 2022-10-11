@@ -49,26 +49,6 @@
                Margin="20,0,20,0"
                MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
 
-        <!-- Leaderboard Button -->
-
-        <Image x:Name="LeaderboardBtn"
-               Source="ImgAssets/podium.png"
-               MouseLeftButtonDown="LeaderboardBtn_MouseLeftButtonDown"
-                Grid.Column="2"
-                Height="30"
-                Width="30"
-               Visibility="Visible"
-                HorizontalAlignment="Right"
-                Margin="0,0,35,0"/>
-
-        <Label  Content="Leaderboard"
-                FontWeight="DemiBold"
-                Grid.Column="2"
-                Margin="0,0,10,0"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Right"/>
-
-
         <!-- Content Frame -->
 
         <Frame x:Name="ContentFrame"

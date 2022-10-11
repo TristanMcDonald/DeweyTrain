@@ -8,13 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ImgAssets\account.png" />
-    <None Remove="ImgAssets\podium.png" />
+    <None Remove="ImgAssets\accepted.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="ImgAssets\account.png" />
-    <Resource Include="ImgAssets\podium.png" />
+    <Resource Include="ImgAssets\accepted.png" />
   </ItemGroup>
 
 </Project>
