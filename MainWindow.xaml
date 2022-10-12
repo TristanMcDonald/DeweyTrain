@@ -94,14 +94,14 @@
                 Background="#2699FB"/>
 
         <Button x:Name="IdentifyingAreasBtn"
+                Click="IdentifyingAreasBtn_Click"
                 Grid.Column="1"
                 Grid.Row="2"
                 Margin="5, 10, 5, 10"
                 Content="Identifying Areas"
                 FontWeight="DemiBold"
                 BorderThickness="0"
-                Background="#2699FB"
-                IsEnabled="False"/>
+                Background="#2699FB"/>
 
         <Button x:Name="FindingCallNumbersBtn"
                 Grid.Column="2"

@@ -24,6 +24,7 @@ namespace DeweyTrain
         //Initializing pages to be displayed in the content frame
         WelcomePage welcomePage = new WelcomePage();
         ReplacingBooksPage replacingBooksPage = new ReplacingBooksPage();
+        IdentifyingAreasPage identifyingAreasPage = new IdentifyingAreasPage();
 
         public MainWindow()
         {
@@ -39,6 +40,11 @@ namespace DeweyTrain
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ContentFrame.Content = welcomePage;
+        }
+
+        private void IdentifyingAreasBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = identifyingAreasPage;
         }
     }
 }
