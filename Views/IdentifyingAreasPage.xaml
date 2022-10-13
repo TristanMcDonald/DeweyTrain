@@ -28,17 +28,17 @@
                  Grid.Column="0"
                  Grid.RowSpan="3"
                  Height="350" 
-                 Margin="40,50,0,50" 
+                 Margin="10,50,0,50" 
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left"
-                 Width="220"
+                 Width="255"
                  FontWeight="Bold"
                  FontSize="17"
-                 Padding="40,10,40,5">
+                 Padding="5,10,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding CallNumber}"/>
+                        <TextBlock Text="{Binding callNumber}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -50,17 +50,17 @@
                  Grid.Column="0"
                  Grid.RowSpan="3"
                  Height="350" 
-                 Margin="0,50,40,50"
+                 Margin="0,50,10,50"
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Right"
-                 Width="220"
+                 Width="255"
                  FontWeight="Bold"
                  FontSize="17"
-                 Padding="40,10,40,5">
+                 Padding="5,10,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Description}" />
+                        <TextBlock Text="{Binding description}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -70,7 +70,7 @@
         <!--Button to check users answer-->
 
         <Button x:Name="checkAnswerBtn"
-                
+                Click="checkAnswerBtn_Click"
                 Grid.Column="1"
                 Grid.Row="2"
                 Margin="50,10,50,110"
@@ -84,6 +84,7 @@
         <!--Button to restart task-->
 
         <Button x:Name="restartAreasBtn"
+                
                 Grid.Column="1"
                 Grid.Row="2"
                 Margin="50,55,50,65"
@@ -93,6 +94,26 @@
                 Background="CadetBlue"
                 BorderBrush="LightBlue"
                 BorderThickness="0.5"/>
+
+        <ListBox x:Name="testListBox" 
+                 Grid.Column="2"
+                 Grid.RowSpan="2"
+                 Height="299" 
+                 Margin="50,30" 
+                 VerticalAlignment="Center" 
+                 Width="224"
+                 FontWeight="Bold"
+                 FontSize="17"
+                 Padding="10,10,10,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding description}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
 
 
     </Grid>
