@@ -37,6 +37,10 @@ namespace DeweyTrain.Views
             {900, "Geography and History"}
         };
 
+        //The dictionary that will store all the users answers.
+        private Dictionary<int, string> questions = new Dictionary<int, string>();
+
+        //The Lists that will display the call numbers and descriptions and allow drag and drop functions.
         private IList<CallNumber> _callNumbers = new ObservableCollection<CallNumber>();
         private IList<Description> _descriptions = new ObservableCollection<Description>();
 
@@ -45,201 +49,48 @@ namespace DeweyTrain.Views
             InitializeComponent();
 
             generateListItems();
-            initializeCallNumbersBox();
-            initializeDescriptionsBox();
+
+            callNumbersListBox.ItemsSource = _callNumbers;
+            descriptionsListBox.ItemsSource = _descriptions;
         }
 
         //Method to generate and add the items needed for the callNumbers and descriptions lists.
         public void generateListItems()
-        {
-            
-            _callNumbers.Add(new CallNumber(000));
-            _callNumbers.Add(new CallNumber(100));
-            _callNumbers.Add(new CallNumber(200));
-            _callNumbers.Add(new CallNumber(300));
-
-            _descriptions.Add(new Description("General Knowledge"));
-            _descriptions.Add(new Description("Psychology and Philosophy"));
-            _descriptions.Add(new Description("Religions and Mythology"));
-            _descriptions.Add(new Description("Social Sciences and Folklore"));
-            _descriptions.Add(new Description("Languages and Grammar"));
-            _descriptions.Add(new Description("Math and Science"));
-            _descriptions.Add(new Description("Medicine and Technology"));
-        }
-
-        //initializing events and styling for the callNumbersListBox
-        public void initializeCallNumbersBox()
-        {
-            callNumbersListBox.ItemsSource = _callNumbers;
-
-            callNumbersListBox.PreviewMouseMove += ListBox_PreviewMouseMove;
-
-            var style = new Style(typeof(ListBoxItem));
-            style.Setters.Add(new Setter(ListBoxItem.AllowDropProperty, true));
-            style.Setters.Add(
-                new EventSetter(
-                    ListBoxItem.PreviewMouseLeftButtonDownEvent,
-                    new MouseButtonEventHandler(ListBoxItem_PreviewMouseLeftButtonDown)));
-            style.Setters.Add(
-                    new EventSetter(
-                        ListBoxItem.DropEvent,
-                        new DragEventHandler(callNumberListBoxItem_Drop)));
-            callNumbersListBox.ItemContainerStyle = style;
-        }
-
-        //initializing events and styling for the descriptionsListBox
-        public void initializeDescriptionsBox()
-        {
-            descriptionsListBox.ItemsSource = _descriptions;
-
-            descriptionsListBox.PreviewMouseMove += ListBox_PreviewMouseMove;
-
-            var style = new Style(typeof(ListBoxItem));
-            style.Setters.Add(new Setter(ListBoxItem.AllowDropProperty, true));
-            style.Setters.Add(
-                new EventSetter(
-                    ListBoxItem.PreviewMouseLeftButtonDownEvent,
-                    new MouseButtonEventHandler(ListBoxItem_PreviewMouseLeftButtonDown)));
-            style.Setters.Add(
-                    new EventSetter(
-                        ListBoxItem.DropEvent,
-                        new DragEventHandler(descriptionListBoxItem_Drop)));
-            descriptionsListBox.ItemContainerStyle = style;
-        }
-
-
-        //The following method was taken from StackOverFlow:
-        //Author: Wiesław Šoltés
-        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
-        private Point _dragStartPoint;
-        private T FindVisualParent<T>(DependencyObject child)
-            where T : DependencyObject
-        {
-            var parentObject = VisualTreeHelper.GetParent(child);
-            if (parentObject == null)
-                return null;
-            T parent = parentObject as T;
-            if (parent != null)
-                return parent;
-            return FindVisualParent<T>(parentObject);
-        }
-
-        //The following method was taken from StackOverFlow:
-        //Author: Wiesław Šoltés
-        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
-        private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            Point point = e.GetPosition(null);
-            Vector diff = _dragStartPoint - point;
-            if (e.LeftButton == MouseButtonState.Pressed &&
-                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                    Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+        {            
+            Random r = new Random();
+            int max = 4;
+            int now;
+            //Retrieving random call numbers and their descriptions from the dictionary of call numbers and descriptions.
+            for (int i = 0; i < max; i++)
             {
-                var lb = sender as ListBox;
-                var lbi = FindVisualParent<ListBoxItem>(((DependencyObject)e.OriginalSource));
-                if (lbi != null)
-                {
-                    DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
-                }
+                now = r.Next(0, questionsAnswer.Count);
+                _callNumbers.Add(new CallNumber(questionsAnswer.ElementAt(now).Key));
+                _descriptions.Add(new Description(questionsAnswer.ElementAt(now).Value));
             }
+
         }
 
-        //The following method was taken from StackOverFlow:
-        //Author: Wiesław Šoltés
-        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
-        private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _dragStartPoint = e.GetPosition(null);
-        }
-
-        //CallNumber Listbox drop and move events
-        //=========================================================================================================
-
-        //The following method was taken from StackOverFlow:
-        //Author: Wiesław Šoltés
-        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
-        private void callNumberListBoxItem_Drop(object sender, DragEventArgs e)
-        {
-            if (sender is ListBoxItem)
-            {
-                var source = e.Data.GetData(typeof(CallNumber)) as CallNumber;
-                var target = ((ListBoxItem)(sender)).DataContext as CallNumber;
-
-                int sourceIndex = callNumbersListBox.Items.IndexOf(source);
-                int targetIndex = callNumbersListBox.Items.IndexOf(target);
-
-                callNumbersMove(source, sourceIndex, targetIndex);
-            }
-        }
-
-        //The following method was taken from StackOverFlow:
-        //Author: Wiesław Šoltés
-        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
-        private void callNumbersMove(CallNumber source, int sourceIndex, int targetIndex)
-        {
-            if (sourceIndex < targetIndex)
-            {
-                _callNumbers.Insert(targetIndex + 1, source);
-                _callNumbers.RemoveAt(sourceIndex);
-            }
-            else
-            {
-                int removeIndex = sourceIndex + 1;
-                if (_callNumbers.Count + 1 > removeIndex)
-                {
-                    _callNumbers.Insert(targetIndex, source);
-                    _callNumbers.RemoveAt(removeIndex);
-                }
-            }
-        }
-        //=========================================================================================================
-
-
-        //Description Listbox drop and move events
-        //=========================================================================================================
-
-        //The following method was taken from StackOverFlow:
-        //Author: Wiesław Šoltés
-        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
-        private void descriptionListBoxItem_Drop(object sender, DragEventArgs e)
-        {
-            if (sender is ListBoxItem)
-            {
-                var source = e.Data.GetData(typeof(Description)) as Description;
-                var target = ((ListBoxItem)(sender)).DataContext as Description;
-
-                int sourceIndex = descriptionsListBox.Items.IndexOf(source);
-                int targetIndex = descriptionsListBox.Items.IndexOf(target);
-
-                descriptionsMove(source, sourceIndex, targetIndex);
-            }
-        }
-
-        //The following method was taken from StackOverFlow:
-        //Author: Wiesław Šoltés
-        //Link: https://stackoverflow.com/questions/3350187/wpf-c-rearrange-items-in-listbox-via-drag-and-drop
-        private void descriptionsMove(Description source, int sourceIndex, int targetIndex)
-        {
-            if (sourceIndex < targetIndex)
-            {
-                _descriptions.Insert(targetIndex + 1, source);
-                _descriptions.RemoveAt(sourceIndex);
-            }
-            else
-            {
-                int removeIndex = sourceIndex + 1;
-                if (_descriptions.Count + 1 > removeIndex)
-                {
-                    _descriptions.Insert(targetIndex, source);
-                    _descriptions.RemoveAt(removeIndex);
-                }
-            }
-        }
-        //=========================================================================================================
-
+        //Check the user's answer.
         private void checkAnswerBtn_Click(object sender, RoutedEventArgs e)
         {
-            testListBox.ItemsSource = _descriptions;
+
+            bool isUserCorrect = true;
+
+            //Checking each key value pair in the users answer
+            //to ensure that the right key is paired with the right value
+            //(the right call number is paired with the right description).
+            foreach (var qKvp in questions)
+            {
+                var descriptionAnswer = from qaKvp in questionsAnswer
+                                        where qaKvp.Key == qKvp.Key
+                                        select qaKvp.Value;
+
+                if (qKvp.Value != descriptionAnswer.ToString())
+                {
+                    isUserCorrect = false;
+                }
+
+            }
         }
 
     }

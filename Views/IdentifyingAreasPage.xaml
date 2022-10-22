@@ -5,19 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DeweyTrain.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="900"
       Title="IdentifyingAreasPage">
 
     <Grid>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -26,12 +27,12 @@
 
         <ListBox x:Name="callNumbersListBox" 
                  Grid.Column="0"
-                 Grid.RowSpan="3"
-                 Height="350" 
+                 Grid.RowSpan="2"
+                 Height="200" 
                  Margin="10,50,0,50" 
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Left"
-                 Width="255"
+                 HorizontalAlignment="Center"
+                 Width="200"
                  FontWeight="Bold"
                  FontSize="17"
                  Padding="5,10,5,5">
@@ -44,16 +45,60 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!--listbox for descriptions (Sajeetharan, 2014)-->
+        <!--listbox for Users Answer to call numbers (Sajeetharan, 2014)-->
         
-        <ListBox x:Name="descriptionsListBox" 
-                 Grid.Column="0"
-                 Grid.RowSpan="3"
-                 Height="350" 
-                 Margin="0,50,10,50"
+        <ListBox x:Name="callNumbersAnswer" 
+                 Grid.Column="1"
+                 Grid.RowSpan="2"
+                 Height="200" 
+                 Margin="0,50,0,50"
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Right"
-                 Width="255"
+                 Width="200"
+                 FontWeight="Bold"
+                 FontSize="17"
+                 Padding="5,10,5,5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding description}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--listbox for Users Answer to call numbers (Sajeetharan, 2014)-->
+
+        <ListBox x:Name="descriptionsAnswer" 
+                 Grid.Column="1"
+                 Grid.RowSpan="2"
+                 Height="200" 
+                 Margin="0,50,10,50"
+                 VerticalAlignment="Center" 
+                 HorizontalAlignment="Left"
+                 Width="200"
+                 FontWeight="Bold"
+                 FontSize="17"
+                 Padding="5,10,5,5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding description}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--listbox for descriptions (Sajeetharan, 2014)-->
+
+        <ListBox x:Name="descriptionsListBox" 
+                 Grid.Column="2"
+                 Grid.RowSpan="2"
+                 Height="200" 
+                 Margin="0,50,10,50"
+                 VerticalAlignment="Center" 
+                 HorizontalAlignment="Center"
+                 Width="200"
                  FontWeight="Bold"
                  FontSize="17"
                  Padding="5,10,5,5">
@@ -67,13 +112,58 @@
         </ListBox>
 
 
-        <!--Button to check users answer-->
+        <Button Name="AddCallNumberButton"
+                Grid.Column="0"
+                Grid.Row="1" 
+                Height="20"
+                Width="100"
+                VerticalAlignment="Bottom"
+                Margin="20,0,20,10"
+                Content="Add"
+                />
+
+        <Button Name="AddDescriptionButton"
+                Grid.Column="2"
+                Grid.Row="1" 
+                Height="20"
+                Width="100"
+                VerticalAlignment="Bottom"
+                Margin="20,0,20,10"
+                Content="Add"
+                />
+
+        <Button Name="RemoveCallNumberButton"
+                Grid.Column="1"
+                Grid.Row="1" 
+                Height="20"
+                Width="100"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="20,0,20,10"
+                >Remove</Button>
+
+        <Button Name="RemoveDescriptionButton"
+                Grid.Column="1"
+                Grid.Row="1" 
+                Height="20"
+                Width="100"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="20,0,20,10"
+                >Remove</Button>
+        
+
+                <!--Button to check users answer-->
 
         <Button x:Name="checkAnswerBtn"
                 Click="checkAnswerBtn_Click"
                 Grid.Column="1"
                 Grid.Row="2"
-                Margin="50,10,50,110"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="50,10,50,10"
+                Width="120"
+                Height="25"
                 Content="CHECK ANSWER"
                 FontWeight="Bold"
                 Foreground="LightBlue"
@@ -87,33 +177,17 @@
                 
                 Grid.Column="1"
                 Grid.Row="2"
-                Margin="50,55,50,65"
+                Margin="50,10,50,10"
+                Width="120"
+                Height="25"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
                 Content="RESTART"
                 FontWeight="Bold"
                 Foreground="LightBlue"
                 Background="CadetBlue"
                 BorderBrush="LightBlue"
                 BorderThickness="0.5"/>
-
-        <ListBox x:Name="testListBox" 
-                 Grid.Column="2"
-                 Grid.RowSpan="2"
-                 Height="299" 
-                 Margin="50,30" 
-                 VerticalAlignment="Center" 
-                 Width="224"
-                 FontWeight="Bold"
-                 FontSize="17"
-                 Padding="10,10,10,10">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding description}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
 
 
     </Grid>
