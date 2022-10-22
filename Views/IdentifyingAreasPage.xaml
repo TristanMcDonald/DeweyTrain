@@ -5,20 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DeweyTrain.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="900"
+      d:DesignHeight="500" d:DesignWidth="900"
       Title="IdentifyingAreasPage">
 
     <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -27,15 +27,16 @@
 
         <ListBox x:Name="callNumbersListBox" 
                  Grid.Column="0"
-                 Grid.RowSpan="2"
+                 Grid.Row="1"
                  Height="200" 
-                 Margin="10,50,0,50" 
+                 Margin="10,5,10,5" 
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 Width="200"
+                 HorizontalAlignment="Right"
+                 HorizontalContentAlignment="Center"
+                 Width="250"
                  FontWeight="Bold"
                  FontSize="17"
-                 Padding="5,10,5,5">
+                 Padding="5,20,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -48,16 +49,17 @@
         <!--listbox for Users Answer to call numbers (Sajeetharan, 2014)-->
         
         <ListBox x:Name="callNumbersAnswer" 
-                 Grid.Column="1"
-                 Grid.RowSpan="2"
+                 Grid.Column="0"
+                 Grid.Row="2"
                  Height="200" 
-                 Margin="0,50,0,50"
+                 Margin="10,5,10,5"
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Right"
-                 Width="200"
+                 HorizontalContentAlignment="Center"
+                 Width="250"
                  FontWeight="Bold"
                  FontSize="17"
-                 Padding="5,10,5,5">
+                 Padding="5,20,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -70,16 +72,17 @@
         <!--listbox for Users Answer to call numbers (Sajeetharan, 2014)-->
 
         <ListBox x:Name="descriptionsAnswer" 
-                 Grid.Column="1"
-                 Grid.RowSpan="2"
+                 Grid.Column="2"
+                 Grid.Row="2"
                  Height="200" 
-                 Margin="0,50,10,50"
+                 Margin="10,5,10,5"
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Left"
-                 Width="200"
+                 HorizontalContentAlignment="Center"
+                 Width="250"
                  FontWeight="Bold"
                  FontSize="17"
-                 Padding="5,10,5,5">
+                 Padding="5,20,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -93,15 +96,16 @@
 
         <ListBox x:Name="descriptionsListBox" 
                  Grid.Column="2"
-                 Grid.RowSpan="2"
+                 Grid.Row="1"
                  Height="200" 
-                 Margin="0,50,10,50"
+                 Margin="10,5,10,5"
                  VerticalAlignment="Center" 
-                 HorizontalAlignment="Center"
-                 Width="200"
+                 HorizontalAlignment="Left"
+                 HorizontalContentAlignment="Center"
+                 Width="250"
                  FontWeight="Bold"
                  FontSize="17"
-                 Padding="5,10,5,5">
+                 Padding="5,20,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -118,38 +122,40 @@
                 Height="20"
                 Width="100"
                 VerticalAlignment="Bottom"
-                Margin="20,0,20,10"
+                HorizontalAlignment="Right"
+                Margin="20,0,85,10"
                 Content="Add"
                 />
 
         <Button Name="AddDescriptionButton"
-                Grid.Column="2"
-                Grid.Row="1" 
-                Height="20"
-                Width="100"
-                VerticalAlignment="Bottom"
-                Margin="20,0,20,10"
-                Content="Add"
-                />
-
-        <Button Name="RemoveCallNumberButton"
                 Grid.Column="1"
                 Grid.Row="1" 
                 Height="20"
                 Width="100"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
-                Margin="20,0,20,10"
-                >Remove</Button>
+                Margin="85,0,20,10"
+                Content="Add"
+                />
 
-        <Button Name="RemoveDescriptionButton"
-                Grid.Column="1"
-                Grid.Row="1" 
+        <Button Name="RemoveCallNumberButton"
+                Grid.Column="0"
+                Grid.Row="2" 
                 Height="20"
                 Width="100"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
-                Margin="20,0,20,10"
+                Margin="20,0,85,10"
+                >Remove</Button>
+
+        <Button Name="RemoveDescriptionButton"
+                Grid.Column="1"
+                Grid.Row="2" 
+                Height="20"
+                Width="100"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="85,0,20,10"
                 >Remove</Button>
         
 
@@ -157,10 +163,10 @@
 
         <Button x:Name="checkAnswerBtn"
                 Click="checkAnswerBtn_Click"
-                Grid.Column="1"
-                Grid.Row="2"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
+                Grid.Column="0"
+                Grid.Row="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
                 Margin="50,10,50,10"
                 Width="120"
                 Height="25"
@@ -175,13 +181,13 @@
 
         <Button x:Name="restartAreasBtn"
                 
-                Grid.Column="1"
-                Grid.Row="2"
+                Grid.Column="2"
+                Grid.Row="3"
                 Margin="50,10,50,10"
                 Width="120"
                 Height="25"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
                 Content="RESTART"
                 FontWeight="Bold"
                 Foreground="LightBlue"
