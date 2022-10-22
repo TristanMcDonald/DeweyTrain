@@ -1,5 +1,6 @@
 ﻿using DeweyTrain.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,26 +24,26 @@ namespace DeweyTrain.Views
     public partial class IdentifyingAreasPage : Page
     {
         //The dictionary that will be used to compare the users answers to.
-        private Dictionary<int, string> questionsAnswer = new Dictionary<int, string>()
+        private Dictionary<string, string> questionsAnswer = new Dictionary<string, string>()
         {
-            {000, "General Knowledge"},
-            {100, "Psychology and Philosophy"},
-            {200, "Religions and Mythology"},
-            {300, "Social Sciences and Folklore"},
-            {400, "Languages and Grammar"},
-            {500, "Math and Science"},
-            {600, "Medicine and Technology"},
-            {700, "Arts and Recreation"},
-            {800, "Literature"},
-            {900, "Geography and History"}
+            {"000", "General Knowledge"},
+            {"100", "Psychology and Philosophy"},
+            {"200", "Religions and Mythology"},
+            {"300", "Social Sciences and Folklore"},
+            {"400", "Languages and Grammar"},
+            {"500", "Math and Science"},
+            {"600", "Medicine and Technology"},
+            {"700", "Arts and Recreation"},
+            {"800", "Literature"},
+            {"900", "Geography and History"}
         };
 
         //The dictionary that will store all the users answers.
-        private Dictionary<int, string> questions = new Dictionary<int, string>();
+        private Dictionary<string, string> questions = new Dictionary<string, string>();
 
-        //The Lists that will display the call numbers and descriptions and allow drag and drop functions.
-        private IList<CallNumber> _callNumbers = new ObservableCollection<CallNumber>();
-        private IList<Description> _descriptions = new ObservableCollection<Description>();
+        //The ArrayLists that will display the call numbers and descriptions in the list boxes.
+        public ArrayList _callNumbers = new ArrayList();
+        public ArrayList _descriptions = new ArrayList();
 
         public IdentifyingAreasPage()
         {
@@ -50,8 +51,8 @@ namespace DeweyTrain.Views
 
             generateListItems();
 
-            callNumbersListBox.ItemsSource = _callNumbers;
-            descriptionsListBox.ItemsSource = _descriptions;
+            QuestionListBox1.ItemsSource = _callNumbers;
+            QuestionListBox2.ItemsSource = _descriptions;
         }
 
         //Method to generate and add the items needed for the callNumbers and descriptions lists.
@@ -64,8 +65,8 @@ namespace DeweyTrain.Views
             for (int i = 0; i < max; i++)
             {
                 now = r.Next(0, questionsAnswer.Count);
-                _callNumbers.Add(new CallNumber(questionsAnswer.ElementAt(now).Key));
-                _descriptions.Add(new Description(questionsAnswer.ElementAt(now).Value));
+                _callNumbers.Add(questionsAnswer.ElementAt(now).Key.ToString());
+                _descriptions.Add(questionsAnswer.ElementAt(now).Value.ToString());
             }
 
         }
@@ -93,5 +94,78 @@ namespace DeweyTrain.Views
             }
         }
 
+        /// <summary>  
+        /// Refreshes data binding  
+        /// </summary>  
+        private void ApplyCallNumberDataBinding()
+        {
+            QuestionListBox1.ItemsSource = null;
+            // Bind ArrayList with the ListBox  
+            QuestionListBox1.ItemsSource = _callNumbers;
+        }
+
+        private void ApplyDescriptionDataBinding()
+        {
+            QuestionListBox2.ItemsSource = null;
+            // Bind ArrayList with the ListBox  
+            QuestionListBox2.ItemsSource = _descriptions;
+        }
+
+        //Declarations for variables used in button Add and Remove clicked events.
+        public string? currentItemText;
+        int currentItemIndex;
+
+        private void AddButton1_Click(object sender, RoutedEventArgs e)
+        {
+            // Find the right item and it's value and index  
+            currentItemText = QuestionListBox1.SelectedValue.ToString();
+            currentItemIndex = QuestionListBox1.SelectedIndex;
+            AnswerListBox1.Items.Add(currentItemText);
+            if (_callNumbers != null)
+            {
+                _callNumbers.RemoveAt(currentItemIndex);
+            }
+            // Refresh data binding  
+            ApplyCallNumberDataBinding();           
+        }
+
+        private void RemoveButton1_Click(object sender, RoutedEventArgs e)
+        {
+            // Find the right item and it's value and index  
+            currentItemText = AnswerListBox1.SelectedValue.ToString();
+            currentItemIndex = AnswerListBox1.SelectedIndex;
+            // Add RightListBox item to the ArrayList  
+            _callNumbers.Add(currentItemText);
+            AnswerListBox1.Items.RemoveAt(AnswerListBox1.Items.IndexOf(AnswerListBox1.SelectedItem));
+            // Refresh data binding  
+            ApplyCallNumberDataBinding();
+        }
+
+        private void AddButton2_Click(object sender, RoutedEventArgs e)
+        {
+            // Find the right item and it's value and index  
+            currentItemText = QuestionListBox2.SelectedValue.ToString();
+            currentItemIndex = QuestionListBox2.SelectedIndex;
+            AnswerListBox2.Items.Add(currentItemText);
+            if (_descriptions != null)
+            {
+                _descriptions.RemoveAt(currentItemIndex);
+            }
+            // Refresh data binding  
+            ApplyDescriptionDataBinding();
+        }
+    
+
+        private void RemoveButton2_Click(object sender, RoutedEventArgs e)
+        {
+            // Find the right item and it's value and index  
+            currentItemText = AnswerListBox2.SelectedValue.ToString();
+            currentItemIndex = AnswerListBox2.SelectedIndex;
+            // Add RightListBox item to the ArrayList  
+            _descriptions.Add(currentItemText);
+            AnswerListBox2.Items.RemoveAt(AnswerListBox2.Items.IndexOf(AnswerListBox2.SelectedItem));
+            // Refresh data binding  
+            ApplyDescriptionDataBinding();
+        }
     }
 }
