@@ -54,7 +54,6 @@ namespace DeweyTrain.Views
         {
             InitializeComponent();
             generateListItems();
-
             QuestionListBox1.ItemsSource = _callNumbers;
             QuestionListBox2.ItemsSource = _descriptions;
         }
@@ -133,6 +132,20 @@ namespace DeweyTrain.Views
                     correctLabel.Visibility = Visibility.Visible;
                     incorrectLabel.Visibility = Visibility.Collapsed;
                     MessageBox.Show("You have received 5 points", "CONGRATULATIONS", MessageBoxButton.OK, MessageBoxImage.Information);
+                    ReplacingBooksPage.userPoints += 5;
+                    userPointsLabel.Content = ReplacingBooksPage.userPoints.ToString();
+                    if (ReplacingBooksPage.userPoints == 10)
+                    {
+                        BitmapImage badge = new BitmapImage(new Uri("pack://application:,,,/ImgAssets/accepted.png"));
+                        MessageBox.Show("You have received a new Badge shown in the bottom right corner", "CONGRATULATIONS", MessageBoxButton.OK, MessageBoxImage.Information);
+                        badgeImg.Source = badge;
+                    }
+                    if(ReplacingBooksPage.userPoints == 20)
+                    {
+                        BitmapImage badge = new BitmapImage(new Uri("pack://application:,,,/ImgAssets/badge2.jpg"));
+                        MessageBox.Show("You have received a new Badge shown in the bottom right corner", "CONGRATULATIONS", MessageBoxButton.OK, MessageBoxImage.Information);
+                        badgeImg.Source = badge;
+                    }
                 }
                 else
                 {

@@ -47,7 +47,7 @@ namespace DeweyTrain.Views
         private IList<Item> _items = new ObservableCollection<Item>();
 
         //Temporary variable to sum the users points and add to the currentuser object.
-        public int userPoints { get; set; }
+        public static int userPoints { get; set; }
 
         public ReplacingBooksPage()
         {
@@ -185,6 +185,12 @@ namespace DeweyTrain.Views
                 if (userPoints == 10)
                 {
                     BitmapImage badge = new BitmapImage(new Uri("pack://application:,,,/ImgAssets/accepted.png"));
+                    MessageBox.Show("You have received a new Badge shown in the bottom right corner", "CONGRATULATIONS", MessageBoxButton.OK, MessageBoxImage.Information);
+                    badgeImg.Source = badge;
+                }
+                if (userPoints == 20)
+                {
+                    BitmapImage badge = new BitmapImage(new Uri("pack://application:,,,/ImgAssets/badge2.jpg"));
                     MessageBox.Show("You have received a new Badge shown in the bottom right corner", "CONGRATULATIONS", MessageBoxButton.OK, MessageBoxImage.Information);
                     badgeImg.Source = badge;
                 }

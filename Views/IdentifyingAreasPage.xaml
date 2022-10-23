@@ -17,9 +17,9 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.8*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.8*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
@@ -35,6 +35,30 @@
                  Width="150"
                  FontSize="14">
         </ListBox>-->
+        
+        <!-- Question heading label -->
+
+        <Label Content="Match Column A with Column B Question"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Grid.Column="0"
+               Grid.Row="0"
+               Grid.ColumnSpan="2"
+               FontSize="20"
+               Foreground="Blue"
+               FontWeight="DemiBold"/>
+
+        <!-- Answer heading label -->
+
+        <Label Content="Your Answer"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Grid.Column="0"
+               Grid.Row="2"
+               Grid.ColumnSpan="2"
+               FontSize="20"
+               Foreground="Blue"
+               FontWeight="DemiBold"/>
 
         <!--listbox 1 for Questions (Sajeetharan, 2014)-->
 
