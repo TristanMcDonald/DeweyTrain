@@ -24,20 +24,10 @@ namespace DeweyTrain.Views
     /// </summary>
     public partial class IdentifyingAreasPage : Page
     {
+        private static Random rng = new Random();
+
         //The dictionary that will be used to compare the users answers to.
-        private Dictionary<string, string> questionsAnswer = new Dictionary<string, string>()
-        {
-            {"000", "General Knowledge"},
-            {"100", "Psychology and Philosophy"},
-            {"200", "Religions and Mythology"},
-            {"300", "Social Sciences and Folklore"},
-            {"400", "Languages and Grammar"},
-            {"500", "Math and Science"},
-            {"600", "Medicine and Technology"},
-            {"700", "Arts and Recreation"},
-            {"800", "Literature"},
-            {"900", "Geography and History"}
-        };
+        private Dictionary<string, string> questions = new Dictionary<string, string>();
 
         //The dictionary that will store all the users answers.
         private Dictionary<string, string> qADict = new Dictionary<string, string>();
@@ -52,15 +42,40 @@ namespace DeweyTrain.Views
 
         public IdentifyingAreasPage()
         {
+            InitializeComponents();
+        }
+
+        //Method to initialize the necessary components for the page.
+        public void InitializeComponents()
+        {
             InitializeComponent();
             generateListItems();
             QuestionListBox1.ItemsSource = _callNumbers;
             QuestionListBox2.ItemsSource = _descriptions;
         }
 
+        //Method to poulate the questions dictionary
+        public void populateQuestions()
+        {
+            questions.Clear();
+            questions.Add("000", "General Knowledge");
+            questions.Add("100", "Psychology and Philosophy");
+            questions.Add("200", "Religions and Mythology");
+            questions.Add("300", "Social Sciences and Folklore");
+            questions.Add("400", "Languages and Grammar");
+            questions.Add("500", "Math and Science");
+            questions.Add("600", "Medicine and Technology");
+            questions.Add("700", "Arts and Recreation");
+            questions.Add("800", "Literature");
+            questions.Add("900", "Geography and History");
+        }
+
         //Method to generate and add the items needed for the callNumbers and descriptions lists.
         public void generateListItems()
-        {            
+        {
+            //Calling the populate questions dictionary method
+            populateQuestions();
+
             Random r = new Random();
             int max = 4;
             int now;
@@ -70,23 +85,25 @@ namespace DeweyTrain.Views
             //https://stackoverflow.com/questions/23543128/take-a-random-item-from-one-list-and-add-it-to-another-list
             for (int i = 0; i < max; i++)
             {
-                now = r.Next(0, questionsAnswer.Count);
-                _callNumbers.Add(questionsAnswer.ElementAt(now).Key.ToString());
-                _descriptions.Add(questionsAnswer.ElementAt(now).Value.ToString());
-                qADict.Add(questionsAnswer.ElementAt(now).Key.ToString(), questionsAnswer.ElementAt(now).Value.ToString());
-                questionsAnswer.Remove(questionsAnswer.ElementAt(now).Key); 
+                now = r.Next(0, questions.Count);
+                _callNumbers.Add(questions.ElementAt(now).Key.ToString());
+                _descriptions.Add(questions.ElementAt(now).Value.ToString());
+                qADict.Add(questions.ElementAt(now).Key.ToString(), questions.ElementAt(now).Value.ToString());
+                questions.Remove(questions.ElementAt(now).Key); 
             }
 
             int now2;
             //Retrieving extra random descriptions from the dictionary of call numbers and descriptions.
             for (int i = 0; i < 3; i++)
             {
-                now2 = r.Next(0, questionsAnswer.Count);
+                now2 = r.Next(0, questions.Count);
 
-                _descriptions.Add(questionsAnswer.ElementAt(now2).Value.ToString());
-                questionsAnswer.Remove(questionsAnswer.ElementAt(now2).Key);
+                _descriptions.Add(questions.ElementAt(now2).Value.ToString());
+                questions.Remove(questions.ElementAt(now2).Key);
             }
 
+            //Shuffle the values in the descriptions column.
+            _descriptions.Sort();
         }
 
         //Check the user's answer.
@@ -97,9 +114,15 @@ namespace DeweyTrain.Views
             {
                 errorEmptyAnswerLabel.Visibility = Visibility.Visible;
             }
+            //If there is not a description for each call number or vice versa display an error message.
+            if (AnswerListBox1.Items.Count != AnswerListBox2.Items.Count)
+            {
+                errorMatchingLabel.Visibility = Visibility.Visible;
+            }
             else
             {
-                errorEmptyAnswerLabel.Visibility = Visibility.Hidden;
+                errorMatchingLabel.Visibility = Visibility.Collapsed;
+                errorEmptyAnswerLabel.Visibility = Visibility.Collapsed;
 
                 //Clear out any old stored values in the user's Answers dictionary.
                 userAnswer.Clear();
@@ -214,7 +237,7 @@ namespace DeweyTrain.Views
             }
             else
             {
-                errorSelectItemRemoveLabel.Visibility = Visibility.Hidden;
+                errorSelectItemRemoveLabel.Visibility = Visibility.Collapsed;
                 // Find the right item and it's value and index  
                 currentItemText = AnswerListBox1.SelectedValue.ToString();
                 currentItemIndex = AnswerListBox1.SelectedIndex;
@@ -236,7 +259,7 @@ namespace DeweyTrain.Views
             }
             else
             {
-                errorSelectItemAddLabel.Visibility = Visibility.Hidden;
+                errorSelectItemAddLabel.Visibility = Visibility.Collapsed;
                 // Find the right item and it's value and index  
                 currentItemText = QuestionListBox2.SelectedValue.ToString();
                 currentItemIndex = QuestionListBox2.SelectedIndex;
@@ -261,7 +284,7 @@ namespace DeweyTrain.Views
             }
             else
             {
-                errorSelectItemRemoveLabel.Visibility = Visibility.Hidden;
+                errorSelectItemRemoveLabel.Visibility = Visibility.Collapsed;
                 // Find the right item and it's value and index  
                 currentItemText = AnswerListBox2.SelectedValue.ToString();
                 currentItemIndex = AnswerListBox2.SelectedIndex;
@@ -275,7 +298,29 @@ namespace DeweyTrain.Views
 
         private void restartAreasBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Clear all items in all collections and list boxes
+            _callNumbers.Clear();
+            _descriptions.Clear();
+            _callNumbersAnswer.Clear();
+            _descriptionsAnswer.Clear();
+            qADict.Clear();
+            userAnswer.Clear();
 
+            QuestionListBox1.ItemsSource = null;
+            QuestionListBox2.ItemsSource = null;
+
+            QuestionListBox1.Items.Clear();
+            QuestionListBox2.Items.Clear();
+            AnswerListBox1.Items.Clear();
+            AnswerListBox2.Items.Clear();
+
+            errorSelectItemAddLabel.Visibility = Visibility.Collapsed;
+            errorMatchingLabel.Visibility = Visibility.Collapsed;
+            errorEmptyAnswerLabel.Visibility = Visibility.Collapsed;
+            errorSelectItemRemoveLabel.Visibility = Visibility.Collapsed;
+
+            //Re-initialize all components
+            InitializeComponents();
         }
     }
 }

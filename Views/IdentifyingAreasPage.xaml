@@ -241,6 +241,20 @@
                Margin="0,30,0,0"
                Visibility="Hidden"/>
 
+        <TextBlock x:Name="errorMatchingLabel"
+               Grid.Row="1"
+               Grid.Column="2"
+               FontSize="16"
+               FontWeight="Bold"
+               Foreground="Red"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               TextAlignment="Center"
+               Margin="0,30,0,0"
+               Visibility="Hidden"> There is no matching value<LineBreak/>
+ for one of the call numbers<LineBreak/>
+ or vice versa </TextBlock>
+
 
         <!--Labels to tell the user whether their answer is correct or not-->
 
