@@ -104,14 +104,14 @@
                 Background="#2699FB"/>
 
         <Button x:Name="FindingCallNumbersBtn"
+                Click="FindingCallNumbersBtn_Click"
                 Grid.Column="2"
                 Grid.Row="2"
                 Margin="10"
                 Content="Finding Call Numbers"
                 FontWeight="DemiBold"
                 BorderThickness="0"
-                Background="#2699FB"
-                IsEnabled="False"/>
+                Background="#2699FB"/>
 
         
         

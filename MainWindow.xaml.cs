@@ -25,6 +25,7 @@ namespace DeweyTrain
         WelcomePage welcomePage = new WelcomePage();
         ReplacingBooksPage replacingBooksPage = new ReplacingBooksPage();
         IdentifyingAreasPage identifyingAreasPage = new IdentifyingAreasPage();
+        FindingCallNumbersPage findingCallNumbersPage = new FindingCallNumbersPage();
 
         public MainWindow()
         {
@@ -45,6 +46,11 @@ namespace DeweyTrain
         private void IdentifyingAreasBtn_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = identifyingAreasPage;
+        }
+
+        private void FindingCallNumbersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = findingCallNumbersPage;
         }
     }
 }
