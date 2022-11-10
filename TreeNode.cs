@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace DeweyTrain.Models
+namespace DeweyTrain
 {
     //The following code refrences StackOverFlow:
     //Author: Ronnie Overby
