@@ -42,103 +42,7 @@ namespace DeweyTrain.Views
 
         public FindingCallNumbersPage()
         {
-            InitializeComponent();
-
-            //Adding the callnumbers from the file to the Tree data structure.
-            foreach (var callNum in ReadCSV("DeweyDecimalDataFile"))
-            {
-                //If the callnumber objects dont contain null or empty values add them to the tree.
-                if (!callNum.TopLevelCallNumber.Equals("") && !callNum.TopLevelCallNumber.Equals(null))
-                {
-                    root.AddChild(callNum);
-                } 
-            }
-
-            //List to contain all the child objects of the Tree data structure (root).
-            List<DeweySystem> dsObjList = new List<DeweySystem>();
-
-            //Adding all the DeweySystem Objects to the list created.
-            foreach (var item in root.Children)
-            {
-                dsObjList.Add(item.Value);
-            } 
-
-            
-
-            //Retrieving random call numbers and their descriptors from the Tree of call numbers.
-            //The following code refrences StackOverFlow:
-            //Author: Tim
-            //https://stackoverflow.com/questions/23543128/take-a-random-item-from-one-list-and-add-it-to-another-list
-            Random r = new Random();
-            int max = 4;
-            int now;
-            for (int i = 0; i < max; i++)
-            {
-                max++;
-                now = r.Next(0, dsObjList.Count);
-                //Making sure there are no duplicates of objects added to the FourTopLvlOptions List.
-                if (!FourTopLvlOptions.Contains(dsObjList.ElementAt(now)))
-                {
-                    FourTopLvlOptions.Add(dsObjList.ElementAt(now));
-                }
-                //Exit the loop if the list contains the 4 objects required.
-                if (FourTopLvlOptions.Count == 4)
-                {
-                    break;
-                }
-            }
-
-            //Selecting a random object from the list of 4 that will serve as the correct answer
-            //and will be stored in the correctObj.
-            
-            for (int i = 0; i < 1; i++)
-            {
-                now = r.Next(0, FourTopLvlOptions.Count);
-                correctObj = FourTopLvlOptions.ElementAt(now);
-            }
-
-            //Removing all call numbers not associated with the top level call number.
-            foreach (var item in correctObj.ThirdLevelCallNumbers)
-            {
-                if (!item.Equals(""))
-                {
-                    int topCallNumStart = int.Parse(correctObj.TopLevelCallNumber.Substring(0, 3));
-                    int number = int.Parse(item.Substring(0, 3));
-                    int topCallNumEnd = topCallNumStart + 100;
-                    if (number < topCallNumEnd && number > topCallNumStart)
-                    {
-                        correctThirdLevelCallNumbers.Add(item);
-                    }
-                }
-            }
-
-            correctObj.ThirdLevelCallNumbers = correctThirdLevelCallNumbers;
-
-            TestListBox.ItemsSource = correctThirdLevelCallNumbers;
-
-            //Selecting 1 third-level-entry from the correctObj's list of thirdLevelCallNumbers.
-            string thirdLvlEntry = null;
-            int a = 2;
-            for (int i = 0; i < a; i++)
-            {
-                now = r.Next(0, correctObj.ThirdLevelCallNumbers.Count);
-                if (!correctObj.ThirdLevelCallNumbers.ElementAt(now).Equals(""))
-                {
-                    thirdLvlEntry = correctObj.ThirdLevelCallNumbers.ElementAt(now);
-                    a++;
-                }
-            }
-
-            //Adding the third-level-entry to the relevant listbox.
-            ThirdLevelEntryListBox.Items.Add(thirdLvlEntry);
-            
-            //Adding the 4 top level options to the relevant listbox.
-            foreach (var item in FourTopLvlOptions)
-            {
-                TopLevelOptionsListBox.Items.Add(item.TopLevelCallNumber);
-            }
-  
-
+            Initialize();
         }
 
         public IEnumerable<DeweySystem> ReadCSV(string fileName)
@@ -166,11 +70,157 @@ namespace DeweyTrain.Views
             });
         }
 
+        public void StoreDataInTree()
+        {
+            //Adding the callnumbers from the file to the Tree data structure.
+            foreach (var callNum in ReadCSV("DeweyDecimalDataFile"))
+            {
+                //If the callnumber objects dont contain null or empty values add them to the tree.
+                if (!callNum.TopLevelCallNumber.Equals("") && !callNum.TopLevelCallNumber.Equals(null))
+                {
+                    root.AddChild(callNum);
+                }
+            }
+        }
+
+        public void RemoveUnassociatedCallNumbers()
+        {
+            //Removing all call numbers not associated with the top level call number.
+            foreach (var item in correctObj.ThirdLevelCallNumbers)
+            {
+                if (!item.Equals(""))
+                {
+                    int topCallNumStart = int.Parse(correctObj.TopLevelCallNumber.Substring(0, 3));
+                    int number = int.Parse(item.Substring(0, 3));
+                    int topCallNumEnd = topCallNumStart + 100;
+                    if (number < topCallNumEnd && number > topCallNumStart)
+                    {
+                        correctThirdLevelCallNumbers.Add(item);
+                    }
+                }
+            }
+            //Setting the correct call numbers associated with the TOp level call number in the object. 
+            correctObj.ThirdLevelCallNumbers = correctThirdLevelCallNumbers;
+        }
+
+        //Method to initialize the necessary components and data for the page.
+        public void Initialize()
+        {
+            InitializeComponent();
+
+            StoreDataInTree();
+
+            //List to contain all the child objects of the Tree data structure (root).
+            List<DeweySystem> dsObjList = new List<DeweySystem>();
+
+            //Adding all the DeweySystem Objects to the list created.
+            foreach (var item in root.Children)
+            {
+                dsObjList.Add(item.Value);
+            }
+
+            //Retrieving random call numbers and their descriptors from the Tree of call numbers.
+            //The following code refrences StackOverFlow:
+            //Author: Tim
+            //https://stackoverflow.com/questions/23543128/take-a-random-item-from-one-list-and-add-it-to-another-list
+            Random r = new Random();
+            int max = 4;
+            int now;
+            for (int i = 0; i < max; i++)
+            {
+                max++;
+                now = r.Next(0, dsObjList.Count);
+                //Making sure there are no duplicates of objects added to the FourTopLvlOptions List.
+                if (!FourTopLvlOptions.Contains(dsObjList.ElementAt(now)))
+                {
+                    FourTopLvlOptions.Add(dsObjList.ElementAt(now));
+                }
+                //Exit the loop if the list contains the 4 objects required.
+                if (FourTopLvlOptions.Count == 4)
+                {
+                    break;
+                }
+            }
+
+            //Selecting a random object from the list of 4 that will serve as the correct answer
+            //and will be stored in the correctObj.
+
+            for (int i = 0; i < 1; i++)
+            {
+                now = r.Next(0, FourTopLvlOptions.Count);
+                correctObj = FourTopLvlOptions.ElementAt(now);
+            }
+
+            RemoveUnassociatedCallNumbers();
+
+            //TestListBox.ItemsSource = correctThirdLevelCallNumbers;
+
+            //Selecting 1 third-level-entry from the correctObj's list of thirdLevelCallNumbers.
+            string thirdLvlEntry = null;
+            int a = 2;
+            for (int i = 0; i < a; i++)
+            {
+                now = r.Next(0, correctObj.ThirdLevelCallNumbers.Count);
+                if (!correctObj.ThirdLevelCallNumbers.ElementAt(now).Equals(""))
+                {
+                    thirdLvlEntry = correctObj.ThirdLevelCallNumbers.ElementAt(now);
+                    a++;
+                }
+            }
+
+            //Adding the third-level-entry to the relevant listbox.
+            ThirdLevelEntryListBox.Items.Add(thirdLvlEntry);
+
+            //Adding the 4 top level options to the relevant listbox.
+            foreach (var item in FourTopLvlOptions)
+            {
+                TopLevelOptionsListBox.Items.Add(item.TopLevelCallNumber);
+            }
+        }
+
         private void checkAnswerBtn_Click(object sender, RoutedEventArgs e)
         {
+            //If the user does not select an answer but clicks the check answer button then display
+            //the relevant error message.
+            if (TopLevelOptionsListBox.SelectedItem == null)
+            {
+                selectItemErrorLabel.Visibility = Visibility.Visible;
+            }
+            selectItemErrorLabel.Visibility = Visibility.Collapsed;
 
+            if (TopLevelOptionsListBox.SelectedItem == correctObj.TopLevelCallNumber) 
+            {
+                incorrectLabel.Visibility = Visibility.Collapsed;
+                correctLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                correctLabel.Visibility = Visibility.Collapsed;
+                incorrectLabel.Visibility = Visibility.Visible;
+            }
 
+        }
 
+        private void restartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            correctLabel.Visibility = Visibility.Collapsed;
+            incorrectLabel.Visibility = Visibility.Collapsed;
+            selectItemErrorLabel.Visibility = Visibility.Collapsed;
+
+            TopLevelOptionsListBox.Items.Clear();
+            ThirdLevelEntryListBox.Items.Clear();
+
+            TopLevelOptionsListBox.ItemsSource = null;
+            ThirdLevelEntryListBox.ItemsSource = null;
+            
+
+            root = new TreeNode<DeweySystem>(ds);
+
+            FourTopLvlOptions.Clear();
+            correctObj = new DeweySystem();
+            correctThirdLevelCallNumbers.Clear();
+
+            Initialize();
         }
     }
 }

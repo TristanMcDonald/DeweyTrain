@@ -50,7 +50,7 @@
                  Padding="5,20,5,5">
         </ListBox>
 
-        <ListBox x:Name="TestListBox" 
+        <!--<ListBox x:Name="TestListBox" 
                  Grid.Column="2"
                  Grid.Row="0"
                  Height="300" 
@@ -60,7 +60,7 @@
                  HorizontalAlignment="Center"
                  FontWeight="Bold"
                  FontSize="17">
-        </ListBox>
+        </ListBox>-->
 
 
         <!--Button to check users answer-->
@@ -80,6 +80,63 @@
                 Background="Blue"
                 BorderBrush="LightBlue"
                 BorderThickness="0.5"/>
+
+        <!--Button to restart task-->
+
+        <Button x:Name="restartBtn"
+                Click="restartBtn_Click"
+                Grid.Column="2"
+                Grid.Row="1"
+                Margin="30,10,30,30"
+                Width="120"
+                Height="25"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="RESTART"
+                FontWeight="Bold"
+                Foreground="LightBlue"
+                Background="CadetBlue"
+                BorderBrush="LightBlue"
+                BorderThickness="0.5"/>
+
+
+        <Label x:Name="selectItemErrorLabel"
+               Grid.Row="0"
+               Grid.Column="2"
+               Content="Please select an answer"
+               FontSize="12"
+               FontWeight="DemiBold"
+               Foreground="Red"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Margin="0,0,0,30"
+               Visibility="Collapsed"/>
+
+        <!--Labels to tell the user whether their answer is correct or not-->
+
+        <Label x:Name="correctLabel"
+               Grid.Row="0"
+               Grid.Column="0"
+               Content="Correct"
+               FontSize="24"
+               FontWeight="DemiBold"
+               Foreground="LightGreen"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Margin="0,0,0,10"
+               Visibility="Hidden"/>
+
+        <Label x:Name="incorrectLabel"
+               Grid.Row="0"
+               Grid.Column="0"
+               Content="Incorrect"
+               FontSize="24"
+               FontWeight="DemiBold"
+               Foreground="Red"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Margin="0,80,0,0"
+               Visibility="Hidden"/>
 
 
     </Grid>
