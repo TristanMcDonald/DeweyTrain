@@ -10,8 +10,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -19,11 +19,68 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         
         
+        <ListBox x:Name="ThirdLevelEntryListBox" 
+                 Grid.Column="0"
+                 Grid.Row="0"
+                 Height="70" 
+                 Width="320"
+                 Margin="10,5,10,200" 
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 HorizontalContentAlignment="Center"
+                 FontWeight="Bold"
+                 FontSize="17">
+        </ListBox>
+
         
         
-        
-        
+        <ListBox x:Name="TopLevelOptionsListBox" 
+                 Grid.Column="1"
+                 Grid.Row="0"
+                 Height="300" 
+                 Width="360"
+                 Margin="5,5,5,5" 
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 FontWeight="Bold"
+                 FontSize="17"
+                 Padding="5,20,5,5">
+        </ListBox>
+
+        <ListBox x:Name="TestListBox" 
+                 Grid.Column="2"
+                 Grid.Row="0"
+                 Height="300" 
+                 Width="150"
+                 Margin="5,5,5,5" 
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 FontWeight="Bold"
+                 FontSize="17">
+        </ListBox>
+
+
+        <!--Button to check users answer-->
+
+        <Button x:Name="checkAnswerBtn"
+                Click="checkAnswerBtn_Click"
+                Grid.Column="1"
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="50,10,50,30"
+                Width="120"
+                Height="25"
+                Content="CHECK ANSWER"
+                FontWeight="Bold"
+                Foreground="LightBlue"
+                Background="Blue"
+                BorderBrush="LightBlue"
+                BorderThickness="0.5"/>
+
+
     </Grid>
 </Page>

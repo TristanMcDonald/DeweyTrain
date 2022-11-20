@@ -14,7 +14,7 @@ namespace DeweyTrain
     public class TreeNode<T>
     {
         private readonly T _value;
-        private readonly List<TreeNode<T>> _children = new List<TreeNode<T>>();
+        private List<TreeNode<T>> _children = new List<TreeNode<T>>();
 
         public TreeNode(T value)
         {
